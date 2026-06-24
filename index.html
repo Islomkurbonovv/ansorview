@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ansor — Halol va tabiiy tushonka mahsulotlari</title>
+<meta name="description" content="Ansor — 2010-yildan beri ishonchli milliy brend. 100% halol, tabiiy va yirik bo'lakli go'shtdan tayyorlangan 7 xil premium tushonka.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3EDE1;
+    --bone-deep:#EAE2D2;
+    --oxblood:#6E2014;
+    --oxblood-deep:#4E150C;
+    --ink:#1C1714;
+    --brass:#B98A36;
+    --brass-soft:#E3CF9F;
+    --pewter:#8C8576;
+    --white:#FFFDF8;
+    --line:rgba(28,23,20,.12);
+    --line-light:rgba(243,237,225,.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--bone);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.05;letter-spacing:-.015em}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block}
+  ::selection{background:var(--brass);color:var(--ink)}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem)}
+  .eyebrow{
+    font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--brass);display:inline-flex;align-items:center;gap:.6rem;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--brass);display:inline-block}
+
+  /* paper grain overlay on bone sections */
+  .grain{position:relative}
+  .grain::after{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.55rem;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:.95rem;
+    padding:.85rem 1.5rem;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+    transition:transform .25s ease,box-shadow .25s ease,background .25s ease,color .25s ease;
+  }
+  .btn svg{width:18px;height:18px}
+  .btn-gold{background:var(--brass);color:var(--ink);box-shadow:0 8px 24px -8px rgba(185,138,54,.7)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px -8px rgba(185,138,54,.85)}
+  .btn-blood{background:var(--oxblood);color:var(--bone)}
+  .btn-blood:hover{transform:translateY(-2px);background:var(--oxblood-deep)}
+  .btn-ghost-light{border-color:rgba(243,237,225,.45);color:var(--bone)}
+  .btn-ghost-light:hover{border-color:var(--bone);background:rgba(243,237,225,.08)}
+  .btn-ghost-dark{border-color:var(--line);color:var(--ink)}
+  .btn-ghost-dark:hover{border-color:var(--oxblood);color:var(--oxblood)}
+
+  :focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:4px}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(243,237,225,.82);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:'Fraunces';font-weight:900;font-size:1.5rem;color:var(--oxblood);letter-spacing:-.02em}
+  .brand .seal-mini{width:22px;height:22px;flex:none}
+  .nav-logo{height:42px;width:auto;display:block}
+  .footer-logo{height:36px;width:auto;display:block}
+  .nav-links{display:flex;gap:2rem;align-items:center}
+  .nav-links a{font-size:.92rem;font-weight:500;color:var(--ink);opacity:.78;transition:opacity .2s,color .2s}
+  .nav-links a:hover{opacity:1;color:var(--oxblood)}
+  .nav-cta{display:flex;align-items:center;gap:1rem}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:.4rem}
+  .menu-btn span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:.3s}
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--oxblood);color:var(--bone);position:relative;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;top:-30%;right:-10%;width:760px;height:760px;border-radius:50%;
+    background:radial-gradient(circle,rgba(185,138,54,.35),transparent 62%);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;
+    padding:clamp(3rem,7vw,5.5rem) 0 clamp(3.5rem,7vw,6rem);position:relative;z-index:2;
+  }
+  .hero-eyebrow{color:var(--brass-soft)}
+  .hero-eyebrow::before{background:var(--brass-soft)}
+  .hero h1{font-size:clamp(2.6rem,5.6vw,4.7rem);font-weight:900;margin:1.4rem 0 1.3rem}
+  .hero h1 em{font-style:italic;color:var(--brass-soft)}
+  .hero p.lead{font-size:clamp(1.02rem,1.4vw,1.2rem);max-width:30rem;color:rgba(243,237,225,.82);margin-bottom:2rem}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.6rem}
+  .hero-seals{display:flex;gap:1.5rem;align-items:center}
+  .hero-seal{display:flex;align-items:center;gap:.7rem;font-size:.85rem;color:rgba(243,237,225,.85)}
+  .hero-seal svg{width:42px;height:42px;flex:none}
+
+  /* tin illustration */
+  .tin-stage{display:flex;justify-content:center;position:relative}
+  .tin-stage::before{
+    content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(227,207,159,.28),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);
+  }
+  .tin{width:min(360px,80vw);height:auto;position:relative;filter:drop-shadow(0 30px 40px rgba(0,0,0,.35))}
+
+  /* ---------- TRUST STRIP ---------- */
+  .trust{background:var(--oxblood-deep);color:var(--bone);border-top:1px solid var(--line-light)}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;padding:1.6rem 0}
+  .trust-item{display:flex;align-items:center;gap:.85rem;font-size:.92rem;font-weight:500}
+  .trust-item svg{width:26px;height:26px;flex:none;stroke:var(--brass-soft)}
+
+  /* ---------- SECTION SHARED ---------- */
+  .section{padding:clamp(4rem,8vw,7rem) 0}
+  .section-head{max-width:38rem;margin-bottom:3rem}
+  .section-head h2{font-size:clamp(2rem,3.8vw,3rem);font-weight:800;margin:1rem 0 .8rem;color:var(--ink)}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .section-head p{color:var(--pewter);font-size:1.05rem}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+  .about-copy h2{font-size:clamp(2rem,3.6vw,2.9rem);font-weight:800;margin:1rem 0 1.4rem;color:var(--ink)}
+  .about-copy p{color:#43382f;margin-bottom:1.1rem;font-size:1.05rem}
+  .about-copy p:last-child{margin-bottom:0}
+  .clean-card{background:var(--oxblood);color:var(--bone);border-radius:24px;padding:clamp(1.8rem,3vw,2.6rem);position:relative;overflow:hidden}
+  .clean-card .leaf{width:46px;height:46px;stroke:var(--brass-soft);margin-bottom:1.1rem}
+  .clean-card h3{font-family:'Fraunces';font-weight:700;font-size:1.5rem;margin-bottom:.7rem}
+  .clean-card>p{color:rgba(243,237,225,.78);margin-bottom:1.5rem;font-size:.98rem}
+  .no-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  .no-chip{display:flex;align-items:center;gap:.6rem;background:rgba(243,237,225,.08);border:1px solid var(--line-light);border-radius:12px;padding:.75rem .9rem;font-weight:600;font-size:.95rem}
+  .no-chip svg{width:18px;height:18px;flex:none;stroke:var(--brass-soft)}
+
+  /* ---------- WHY ---------- */
+  .why{background:var(--ink);color:var(--bone)}
+  .why .section-head h2{color:var(--bone)}
+  .why .section-head p{color:rgba(243,237,225,.62)}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+  .why-card{background:rgba(243,237,225,.04);border:1px solid var(--line-light);border-radius:18px;padding:1.6rem;transition:transform .3s,border-color .3s}
+  .why-card:hover{transform:translateY(-6px);border-color:var(--brass)}
+  .why-ic{width:48px;height:48px;border-radius:12px;background:rgba(185,138,54,.16);display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+  .why-ic svg{width:26px;height:26px;stroke:var(--brass-soft)}
+  .why-card h3{font-family:'Fraunces';font-weight:700;font-size:1.18rem;margin-bottom:.55rem}
+  .why-card p{color:rgba(243,237,225,.62);font-size:.92rem;line-height:1.55}
+
+  /* ---------- PRODUCTS ---------- */
+  .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+  .prod-card{background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+  .prod-card:hover{transform:translateY(-6px);box-shadow:0 22px 40px -22px rgba(78,21,12,.5)}
+  .prod-top{height:138px;background:linear-gradient(160deg,#F7EFDD,#EFE2C7);display:flex;align-items:center;justify-content:center;position:relative}
+  .prod-top svg{width:64px;height:64px;stroke:var(--oxblood);stroke-width:1.6;fill:none}
+  .prod-badge{position:absolute;top:.7rem;left:.7rem;background:var(--oxblood);color:var(--bone);font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.28rem .65rem;border-radius:999px}
+  .prod-body{padding:1.15rem 1.2rem 1.4rem}
+  .prod-body h3{font-family:'Fraunces';font-weight:700;font-size:1.12rem;color:var(--ink);margin-bottom:.3rem;line-height:1.2}
+  .prod-body p{color:var(--pewter);font-size:.88rem;line-height:1.45;margin-bottom:.7rem;min-height:2.5em}
+  .prod-weight{font-size:.8rem;font-weight:600;color:var(--oxblood);border-top:1px solid var(--line);padding-top:.65rem}
+  .prod-cta{grid-column:span 1;background:var(--oxblood);color:var(--bone);border-radius:18px;padding:1.6rem;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  .prod-cta h3{font-family:'Fraunces';font-weight:700;font-size:1.3rem;margin-bottom:.6rem}
+  .prod-cta p{color:rgba(243,237,225,.78);font-size:.9rem;margin-bottom:1.1rem}
+
+  /* ---------- MISSION ---------- */
+  .mission{background:var(--oxblood);color:var(--bone);position:relative;overflow:hidden}
+  .mission::before{content:"";position:absolute;bottom:-40%;left:-8%;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(185,138,54,.22),transparent 64%)}
+  .mission-inner{position:relative;z-index:2;max-width:50rem}
+  .mission h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin:1.2rem 0 1.4rem;line-height:1.08}
+  .mission h2 em{font-style:italic;color:var(--brass-soft)}
+  .mission p{font-size:1.1rem;color:rgba(243,237,225,.85);max-width:42rem}
+  .mission .rule{width:60px;height:3px;background:var(--brass);margin:2rem 0 0}
+
+  /* ---------- ORDER ---------- */
+  .order-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1.5rem,3vw,2.5rem);align-items:start}
+  .form-card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(1.6rem,3vw,2.4rem);box-shadow:0 24px 50px -30px rgba(78,21,12,.35)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.1rem}
+  .field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:.4rem;color:var(--ink)}
+  .field input,.field select,.field textarea{
+    width:100%;font-family:inherit;font-size:.95rem;color:var(--ink);
+    background:var(--bone);border:1.5px solid var(--line);border-radius:10px;padding:.8rem .9rem;transition:border-color .2s,background .2s;
+  }
+  .field textarea{resize:vertical;min-height:64px}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--oxblood);background:var(--white)}
+  .field.full{margin-bottom:1.3rem}
+  .form-submit{width:100%;justify-content:center;font-size:1rem}
+  .steps-card{background:var(--bone-deep);border-radius:22px;padding:clamp(1.6rem,3vw,2.2rem)}
+  .steps-card h3{font-family:'Fraunces';font-weight:700;font-size:1.4rem;margin-bottom:1.6rem;color:var(--ink)}
+  .step{display:flex;gap:1rem;margin-bottom:1.5rem}
+  .step:last-child{margin-bottom:0}
+  .step-seal{width:42px;height:42px;flex:none}
+  .step h4{font-size:1rem;font-weight:600;margin-bottom:.2rem;color:var(--ink)}
+  .step p{font-size:.88rem;color:var(--pewter);line-height:1.45}
+  .form-success{display:none;text-align:center;padding:2rem .5rem}
+  .form-success.show{display:block;animation:pop .4s ease}
+  .form-success svg{width:64px;height:64px;margin:0 auto 1.2rem;stroke:var(--brass)}
+  .form-success h3{font-family:'Fraunces';font-weight:700;font-size:1.6rem;color:var(--oxblood);margin-bottom:.6rem}
+  .form-success p{color:var(--pewter);margin-bottom:1.4rem}
+  @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+
+  /* ---------- CONTACT ---------- */
+  .contact{text-align:center}
+  .contact h2{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800;margin-bottom:2.2rem;color:var(--ink)}
+  .contact-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .contact-item{display:flex;align-items:center;gap:.7rem;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:.9rem 1.4rem;font-weight:600;font-size:.95rem;transition:transform .25s,border-color .25s}
+  .contact-item:hover{transform:translateY(-3px);border-color:var(--brass)}
+  .contact-item svg{width:20px;height:20px;stroke:var(--oxblood);flex:none}
+
+  /* ---------- FOOTER ---------- */
+  .footer{background:var(--ink);color:rgba(243,237,225,.6)}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;padding:1.6rem 0;flex-wrap:wrap;gap:1rem;font-size:.88rem}
+  .footer .brand{font-size:1.2rem;color:var(--bone)}
+  .footer .brand .seal-mini{width:18px;height:18px}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:960px){
+    .hero-grid{grid-template-columns:1fr;gap:2rem}
+    .tin-stage{order:-1}
+    .about-grid{grid-template-columns:1fr}
+    .why-grid{grid-template-columns:repeat(2,1fr)}
+    .prod-grid{grid-template-columns:repeat(3,1fr)}
+    .trust-grid{grid-template-columns:repeat(2,1fr)}
+    .order-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:760px){
+    .nav-links{
+      position:absolute;top:72px;left:0;right:0;background:var(--bone);
+      flex-direction:column;gap:0;padding:.5rem 0;border-bottom:1px solid var(--line);
+      transform:translateY(-130%);transition:transform .35s ease;
+    }
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a{padding:.9rem clamp(1.25rem,5vw,2.5rem);width:100%}
+    .menu-btn{display:block}
+    .prod-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:520px){
+    .why-grid,.prod-grid,.trust-grid,.form-row,.no-grid{grid-template-columns:1fr}
+    .hero-seals{flex-direction:column;align-items:flex-start;gap:.9rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- reusable seal symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="seal" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="2 4"/>
+      <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="Ansor bosh sahifa">
+      <img src="ansor-logo.png" alt="Ansor" class="nav-logo">
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">Biz haqimizda</a>
+      <a href="#why">Nega Ansor</a>
+      <a href="#products">Mahsulotlar</a>
+      <a href="#order">Buyurtma</a>
+      <a href="#contact">Aloqa</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#order" class="btn btn-blood" style="padding:.6rem 1.2rem">Buyurtma berish</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow hero-eyebrow">2010-yildan · Halol sertifikatlangan</span>
+      <h1>Uydagidek mazza,<br><em>haqiqiy go'shtdan.</em></h1>
+      <p class="lead">Ansor — yuqori sifatli, halol va mutlaqo tabiiy go'sht mahsulotlari. Eng og'ir ishni biz bajaramiz — siz faqat ochib, mazza qilasiz.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-gold">Mahsulotlarni ko'rish
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#order" class="btn btn-ghost-light">Buyurtma berish</a>
+      </div>
+      <div class="hero-seals">
+        <div class="hero-seal">
+          <svg viewBox="0 0 100 100" style="color:var(--brass-soft)"><use href="#seal"/><text x="50" y="58" text-anchor="middle" font-family="Inter" font-weight="700" font-size="20" fill="currentColor">100%</text></svg>
+          Toza lahm<br>go'sht
+        </div>
+        <div class="hero-seal">
+          <svg viewBox="0 0 100 100" style="color:var(--brass-soft)"><use href="#seal"/><text x="50" y="58" text-anchor="middle" font-family="Inter" font-weight="700" font-size="22" fill="currentColor">ISO</text></svg>
+          Xalqaro<br>sifat nazorati
+        </div>
+      </div>
+    </div>
+
+    <div class="tin-stage">
+      <!-- TIN CAN ILLUSTRATION -->
+      <svg class="tin" viewBox="0 0 400 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ansor tushonka bankasi">
+        <defs>
+          <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#c9cdd1"/><stop offset=".18" stop-color="#eef1f3"/>
+            <stop offset=".5" stop-color="#b9bec3"/><stop offset=".82" stop-color="#e4e7ea"/>
+            <stop offset="1" stop-color="#9aa0a6"/>
+          </linearGradient>
+          <linearGradient id="lid" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#aeb3b8"/><stop offset=".5" stop-color="#f1f3f5"/><stop offset="1" stop-color="#a3a9af"/>
+          </linearGradient>
+          <linearGradient id="label" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#EFE6D2"/><stop offset=".5" stop-color="#F7F1E2"/><stop offset="1" stop-color="#E7DBC0"/>
+          </linearGradient>
+        </defs>
+        <!-- lid top -->
+        <ellipse cx="200" cy="74" rx="142" ry="30" fill="url(#lid)" stroke="#8a9097" stroke-width="2"/>
+        <ellipse cx="200" cy="68" rx="142" ry="30" fill="#f4f6f7" stroke="#9aa0a6" stroke-width="1.5"/>
+        <!-- body -->
+        <path d="M58 74 L58 396 Q58 414 78 420 Q200 444 322 420 Q342 414 342 396 L342 74" fill="url(#steel)"/>
+        <!-- top steel band -->
+        <rect x="58" y="74" width="284" height="40" fill="url(#steel)"/>
+        <ellipse cx="200" cy="74" rx="142" ry="28" fill="#dfe3e6" opacity=".5"/>
+        <!-- label band -->
+        <path d="M58 150 Q200 170 342 150 L342 348 Q200 368 58 348 Z" fill="url(#label)"/>
+        <path d="M58 150 Q200 170 342 150 L342 162 Q200 182 58 162 Z" fill="#6E2014"/>
+        <path d="M58 336 Q200 356 342 336 L342 348 Q200 368 58 348 Z" fill="#6E2014"/>
+        <!-- wordmark -->
+        <text x="200" y="232" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="52" fill="#6E2014" letter-spacing="1">ANSOR</text>
+        <text x="200" y="258" text-anchor="middle" font-family="Inter" font-weight="600" font-size="15" letter-spacing="8" fill="#8C8576">TUSHONKA</text>
+        <!-- brass seal -->
+        <g transform="translate(200 300)">
+          <circle r="30" fill="none" stroke="#B98A36" stroke-width="2.5" stroke-dasharray="2 4"/>
+          <circle r="23" fill="#B98A36"/>
+          <text y="-1" text-anchor="middle" font-family="Inter" font-weight="700" font-size="11" fill="#F7F1E2">HALOL</text>
+          <text y="11" text-anchor="middle" font-family="Inter" font-weight="500" font-size="7" letter-spacing="1" fill="#F7F1E2">SERTIFIKAT</text>
+        </g>
+        <!-- sheen -->
+        <rect x="92" y="120" width="20" height="280" fill="#fff" opacity=".22" rx="10"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust">
+  <div class="wrap trust-grid">
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>100% lahm go'sht</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>GMO va soyasiz</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.8 7.2 17l.9-5.4L4.2 7.7l5.4-.8z"/></svg>Halol sertifikat</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg>Uzoq saqlanadi</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section grain" id="about">
+  <div class="wrap about-grid">
+    <div class="about-copy reveal">
+      <span class="eyebrow">Biz haqimizda</span>
+      <h2>Ishonch — bizning asosiy retseptimiz</h2>
+      <p>Ansor — bu yuqori sifatli, halol va mutlaqo tabiiy go'sht mahsulotlarini ishlab chiqaruvchi ishonchli milliy brend. Asosiy maqsadimiz — xaridorlar dasturxoniga xuddi uydagidek mazzali, to'yimli va xavfsiz mahsulotlarni yetkazib berish.</p>
+      <p>Biz shunchaki mahsulot qadoqlamaymiz. Vaqtingizni tejagan holda, haqiqiy lahm go'shtning betakror ta'mini taqdim etamiz — Toshkent va Qozog'istondagi zavodlarimizda, mahalliy fermalarning toza go'shtidan.</p>
+    </div>
+    <div class="clean-card reveal">
+      <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M11 20A7 7 0 019 6c4-3 9-3 11-3 0 2 0 7-3 11a7 7 0 01-6 6z"/><path d="M11 20c0-5 2-9 6-12"/></svg>
+      <h3>Faqat toza go'sht va halollik</h3>
+      <p>Salomatligingiz biz uchun muhim. Shuning uchun Ansor qadoqlarida bu narsalar umuman yo'q:</p>
+      <div class="no-grid">
+        <div class="no-chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 8l8 8M16 8l-8 8"/></svg>GMO</div>
+        <div class="no-chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 8l8 8M16 8l-8 8"/></svg>Soya</div>
+        <div class="no-chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 8l8 8M16 8l-8 8"/></svg>Bo'yoqlar</div>
+        <div class="no-chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 8l8 8M16 8l-8 8"/></svg>Sun'iy qo'shimcha</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="section why" id="why">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow" style="justify-content:center">Nega aynan Ansor</span>
+      <h2>Xaridorlar bizni shuning uchun tanlaydi</h2>
+      <p>16 yillik tajriba ortida — har bir bankaga qo'yilgan bir xil standart.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.8 7.2 17l.9-5.4L4.2 7.7l5.4-.8z"/></svg></div>
+        <h3>Kafolatlangan halol</h3>
+        <p>Barcha mahsulotlar qat'iy islomiy qoidalarga rioya qilingan holda tayyorlanadi va rasmiy Halol sertifikatiga ega.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1.3l2-1.5-2-3.4-2.3 1a7 7 0 00-2.3-1.3L13.7 2h-3.4L9.7 4.5a7 7 0 00-2.3 1.3l-2.3-1-2 3.4 2 1.5a7 7 0 000 2.6l-2 1.5 2 3.4 2.3-1a7 7 0 002.3 1.3l.6 2.5h3.4l.6-2.5a7 7 0 002.3-1.3l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.3z"/></svg></div>
+        <h3>Xalqaro ISO sifati</h3>
+        <p>Ishlab chiqarish eng zamonaviy texnologiyalar bilan jihozlangan va ISO sifat nazorati talablariga to'liq javob beradi.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+        <h3>Keng assortiment</h3>
+        <p>Har qanday ta'bga mos 7 xil mahsulot: mol, qo'y, ot, quyon go'shti, mol tili, tovuq va tayyor no'xatsho'rak.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg></div>
+        <h3>Uzoq muddatli zaxira</h3>
+        <p>Maxsus qadoqlash texnologiyasi maza va foydani uzoq saqlaydi. Sayohat, tabiat va uy zaxirasi uchun ideal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="section grain" id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Mahsulotlarimiz</span>
+      <h2>7 xil premium tushonka</h2>
+      <p>Mahalliy fermalardan keltirilgan but-butun lahm go'shtdan tayyorlangan.</p>
+    </div>
+    <div class="prod-grid">
+      <!-- 1 Mol -->
+      <article class="prod-card reveal">
+        <div class="prod-top"><span class="prod-badge">Bestseller</span>
+          <svg viewBox="0 0 48 48"><path d="M10 22c0-7 6-12 14-12s14 4 14 11c0 6-4 9-4 13s-3 6-7 6-6-3-6-6-3-3-5-5-2-5-1-7z"/><circle cx="20" cy="22" r="2" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="prod-body"><h3>Mol go'shti tushonkasi</h3><p>Yirik bo'lakli, but-butun lahm go'sht.</p><div class="prod-weight">325 g · 525 g banka</div></div>
+      </article>
+      <!-- 2 Qoy -->
+      <article class="prod-card reveal">
+        <div class="prod-top"><span class="prod-badge">Premium</span>
+          <svg viewBox="0 0 48 48"><path d="M24 8c4 0 7 3 7 7l3 2c2 1 3 4 1 6l-4 3v8c0 3-3 5-7 5s-7-2-7-5v-8l-4-3c-2-2-1-5 1-6l3-2c0-4 3-7 7-7z"/></svg>
+        </div>
+        <div class="prod-body"><h3>Qo'y go'shti</h3><p>An'anaviy, to'yimli va boy ta'm.</p><div class="prod-weight">325 g · 525 g banka</div></div>
+      </article>
+      <!-- 3 Ot -->
+      <article class="prod-card reveal">
+        <div class="prod-top"><span class="prod-badge">Maxsus</span>
+          <svg viewBox="0 0 48 48"><path d="M16 10c0 6-2 9-2 16 0 6 4 11 10 11s10-5 10-12c0-8-3-11-3-15"/><path d="M16 10c-2 0-4 2-4 4M31 10c2 0 4 2 4 4"/></svg>
+        </div>
+        <div class="prod-body"><h3>Ot go'shti</h3><p>Quvvatga boy milliy mahsulot.</p><div class="prod-weight">325 g · 525 g banka</div></div>
+      </article>
+      <!-- 4 Quyon -->
+      <article class="prod-card reveal">
+        <div class="prod-top"><span class="prod-badge">Parhez</span>
+          <svg viewBox="0 0 48 48"><path d="M18 16c-1-4 0-8 2-8s3 3 3 7M26 16c0-4 1-7 3-7s3 4 2 8"/><ellipse cx="24" cy="28" rx="9" ry="11"/></svg>
+        </div>
+        <div class="prod-body"><h3>Quyon go'shti</h3><p>Parhezbop, kam yog'li, yengil.</p><div class="prod-weight">325 g banka</div></div>
+      </article>
+      <!-- 5 Til -->
+      <article class="prod-card reveal">
+        <div class="prod-top"><span class="prod-badge">Delikates</span>
+          <svg viewBox="0 0 48 48"><path d="M14 20c0-5 4-8 10-8s10 3 10 9c0 7-5 13-10 13-3 0-5-2-5-5 0-2-5-3-5-8z"/></svg>
+        </div>
+        <div class="prod-body"><h3>Mol tili</h3><p>Nozik, mayin delikates mahsulot.</p><div class="prod-weight">325 g banka</div></div>
+      </article>
+      <!-- 6 Tovuq -->
+      <article class="prod-card reveal">
+        <div class="prod-top"><span class="prod-badge">Yangi</span>
+          <svg viewBox="0 0 48 48"><path d="M30 14c4 0 7 3 7 7s-3 7-8 7l-9 9c-2 2-6 2-8 0s-2-6 0-8l9-9c0-7 5-13 9-13"/><path d="M14 34l-3 3"/></svg>
+        </div>
+        <div class="prod-body"><h3>Tovuq go'shti</h3><p>Yengil va har kuni uchun mos.</p><div class="prod-weight">250 g · 400 g banka</div></div>
+      </article>
+      <!-- 7 Noxat -->
+      <article class="prod-card reveal">
+        <div class="prod-top"><span class="prod-badge">Tayyor taom</span>
+          <svg viewBox="0 0 48 48"><path d="M10 24h28c0 8-6 14-14 14s-14-6-14-14z"/><circle cx="20" cy="16" r="2.5"/><circle cx="27" cy="13" r="2.5"/><circle cx="29" cy="19" r="2.5"/></svg>
+        </div>
+        <div class="prod-body"><h3>Choyxonacha no'xatsho'rak</h3><p>Tayyor — isitib darrov yeyish mumkin.</p><div class="prod-weight">400 g banka</div></div>
+      </article>
+      <!-- CTA card -->
+      <div class="prod-cta reveal">
+        <h3>Qaysi biri sizniki?</h3>
+        <p>Tanlang va biz tez yetkazib beramiz.</p>
+        <a href="#order" class="btn btn-gold" style="justify-content:center">Buyurtma berish</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISSION ============ -->
+<section class="section mission">
+  <div class="wrap mission-inner reveal">
+    <span class="eyebrow hero-eyebrow">Bizning maqsadimiz</span>
+    <h2>Har bir xonadonga baraka, salomatlik va <em>shohona taomlar</em> ta'mini olib kirish</h2>
+    <p>Vaqtingizni qozon boshida emas, oilangiz va yaqinlaringiz davrasida o'tkazishingiz uchun eng og'ir ishni o'z zimmamizga oldik. Ansor bilan qayerda bo'lishingizdan qat'i nazar, mazali taom tayyorlash juda oson.</p>
+    <div class="rule"></div>
+  </div>
+</section>
+
+<!-- ============ ORDER ============ -->
+<section class="section grain" id="order">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Buyurtma berish</span>
+      <h2>Tez va oson buyurtma</h2>
+      <p>Mahsulot tanlang, miqdorni kiriting — qolganini biz qilamiz.</p>
+    </div>
+    <div class="order-grid">
+      <div class="form-card reveal">
+        <form id="orderForm" novalidate>
+          <div class="form-row">
+            <div class="field"><label for="name">Ismingiz</label><input id="name" name="name" type="text" placeholder="Ismingizni kiriting" required></div>
+            <div class="field"><label for="phone">Telefon raqam</label><input id="phone" name="phone" type="tel" placeholder="+998 __ ___ __ __" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="product">Mahsulot</label>
+              <select id="product" name="product" required>
+                <option value="" disabled selected>Mahsulot tanlang</option>
+                <option>Mol go'shti tushonkasi</option>
+                <option>Qo'y go'shti</option>
+                <option>Ot go'shti</option>
+                <option>Quyon go'shti</option>
+                <option>Mol tili</option>
+                <option>Tovuq go'shti</option>
+                <option>Choyxonacha no'xatsho'rak</option>
+              </select>
+            </div>
+            <div class="field"><label for="qty">Miqdor (dona)</label><input id="qty" name="qty" type="number" min="1" placeholder="Masalan: 10" required></div>
+          </div>
+          <div class="field full"><label for="note">Izoh (ixtiyoriy)</label><textarea id="note" name="note" placeholder="Manzil yoki qo'shimcha xohishlaringiz..."></textarea></div>
+          <button type="submit" class="btn btn-gold form-submit">Buyurtmani yuborish
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          <h3>Rahmat, buyurtma qabul qilindi!</h3>
+          <p id="successText">Tez orada operatorimiz siz bilan bog'lanadi.</p>
+          <button class="btn btn-ghost-dark" onclick="resetForm()">Yana buyurtma berish</button>
+        </div>
+      </div>
+
+      <div class="steps-card reveal">
+        <h3>Qanday ishlaydi?</h3>
+        <div class="step">
+          <svg class="step-seal" viewBox="0 0 100 100" style="color:var(--brass)"><use href="#seal"/><text x="50" y="62" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="34" fill="var(--oxblood)">1</text></svg>
+          <div><h4>Formani to'ldiring</h4><p>Ism, telefon va mahsulot ma'lumotini kiriting.</p></div>
+        </div>
+        <div class="step">
+          <svg class="step-seal" viewBox="0 0 100 100" style="color:var(--brass)"><use href="#seal"/><text x="50" y="62" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="34" fill="var(--oxblood)">2</text></svg>
+          <div><h4>Operator qo'ng'iroq qiladi</h4><p>30 daqiqa ichida siz bilan bog'lanamiz va tasdiqlaymiz.</p></div>
+        </div>
+        <div class="step">
+          <svg class="step-seal" viewBox="0 0 100 100" style="color:var(--brass)"><use href="#seal"/><text x="50" y="62" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="34" fill="var(--oxblood)">3</text></svg>
+          <div><h4>Yetkazib beramiz</h4><p>O'zbekiston bo'ylab 1–3 kun ichida manzilingizga yetadi.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="wrap reveal">
+    <span class="eyebrow" style="justify-content:center">Aloqa</span>
+    <h2>Bizga yozing yoki qo'ng'iroq qiling</h2>
+    <div class="contact-row">
+      <a href="tel:+998944004000" class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>+998 94 400 40 00</a>
+      <a href="mailto:tillabuqa@gmail.com" class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>tillabuqa@gmail.com</a>
+      <span class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Toshkent · Qozog'iston zavodlari</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span class="brand">
+      <img src="ansor-logo-light.png" alt="Ansor" class="footer-logo">
+    </span>
+    <span id="year">© 2026 Ansor. Barcha huquqlar himoyalangan.</span>
+    <span>ansor.uz</span>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const menuBtn=document.getElementById('menuBtn');
+  const navLinks=document.getElementById('navLinks');
+  menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+  // scroll reveal
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // year
+  document.getElementById('year').textContent='© '+new Date().getFullYear()+' Ansor. Barcha huquqlar himoyalangan.';
+
+  // form
+  const form=document.getElementById('orderForm');
+  const success=document.getElementById('formSuccess');
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return;}
+    const d=new FormData(form);
+    document.getElementById('successText').textContent=
+      `${d.get('name')}, "${d.get('product')}" — ${d.get('qty')} dona buyurtmangiz qabul qilindi. Tez orada bog'lanamiz.`;
+    form.style.display='none';
+    success.classList.add('show');
+  });
+  function resetForm(){
+    form.reset();form.style.display='block';success.classList.remove('show');
+  }
+</script>
+</body>
+</html>
